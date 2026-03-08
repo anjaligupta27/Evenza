@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evenza Admin - Create Event</title>
+
+<style>
+
+/* Body Theme */
+body{
+margin:0;
+font-family:'Segoe UI', Arial, sans-serif;
+background:#0f172a;
+color:#e2e8f0;
+}
+
+/* Navbar */
+.navbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 40px;
+background:#020617;
+border-bottom:1px solid #1e293b;
+}
+
+.logo{
+font-size:22px;
+font-weight:bold;
+color:#38bdf8;
+}
+
+.menu{
+list-style:none;
+display:flex;
+gap:25px;
+}
+
+.menu a{
+text-decoration:none;
+color:#e2e8f0;
+}
+
+.menu a:hover{
+color:#38bdf8;
+}
+
+/* Form Container */
+.container{
+max-width:500px;
+margin:60px auto;
+background:#020617;
+padding:35px;
+border-radius:12px;
+border:1px solid #1e293b;
+}
+
+.container h2{
+text-align:center;
+margin-bottom:20px;
+color:#38bdf8;
+}
+
+/* Inputs */
+input, textarea{
+width:100%;
+padding:12px;
+margin:10px 0;
+border-radius:6px;
+border:1px solid #1e293b;
+background:#0f172a;
+color:#e2e8f0;
+font-size:14px;
+}
+
+/* Button */
+button{
+width:100%;
+padding:12px;
+background:#38bdf8;
+border:none;
+border-radius:6px;
+font-weight:bold;
+cursor:pointer;
+}
+
+button:hover{
+opacity:0.9;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- Navbar -->
+
+<nav class="navbar">
+<div class="logo">Evenza Admin</div>
+
+<ul class="menu">
+<li><a href="#">Dashboard</a></li>
+<li><a href="#">Create Event</a></li>
+<li><a href="#">Logout</a></li>
+</ul>
+</nav>
+
+<!-- Create Event Form -->
+
+<div class="container">
+
+<h2>Create New Event</h2>
+
+<form onsubmit="addEvent(); return false;">
+
+<input type="text" id="name" placeholder="Event Name" required>
+
+<input type="date" id="date" required>
+
+<input type="text" id="venue" placeholder="Venue" required>
+
+<textarea id="desc" placeholder="Event Description"></textarea>
+
+<button type="submit">Create Event</button>
+
+</form>
+
+</div>
+
+<script>
+
+function addEvent(){
+
+var name = document.getElementById("name").value;
+var date = document.getElementById("date").value;
+var venue = document.getElementById("venue").value;
+var desc = document.getElementById("desc").value;
+
+fetch("http://localhost:5000/events",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body: JSON.stringify({
+name:name,
+date:date,
+venue:venue,
+description:desc
+})
+
+})
+.then(res => res.json())
+.then(data => {
+alert("Event Created Successfully");
+})
+
+.catch(error => {
+console.log(error);
+alert("Error creating event");
+});
+
+/* clear form */
+
+document.getElementById("name").value="";
+document.getElementById("date").value="";
+document.getElementById("venue").value="";
+document.getElementById("desc").value="";
+
+}
+
+</script>
+
+</body>
+</html>

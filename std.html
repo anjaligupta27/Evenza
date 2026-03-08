@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evenza - My Events</title>
+
+<style>
+
+/* Body Theme */
+body{
+margin:0;
+font-family:'Segoe UI', Arial;
+background:#0f172a;
+color:#e2e8f0;
+}
+
+/* Navbar */
+.navbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 40px;
+background:#020617;
+border-bottom:1px solid #1e293b;
+}
+
+.logo{
+font-size:22px;
+font-weight:bold;
+color:#38bdf8;
+}
+
+.menu{
+list-style:none;
+display:flex;
+gap:25px;
+}
+
+.menu a{
+text-decoration:none;
+color:#e2e8f0;
+}
+
+.menu a:hover{
+color:#38bdf8;
+}
+
+/* Page Title */
+
+.title{
+text-align:center;
+margin-top:40px;
+color:#38bdf8;
+}
+
+/* Search Bar */
+
+.search-box{
+text-align:center;
+margin:25px;
+}
+
+.search-box input{
+width:300px;
+padding:10px;
+border-radius:6px;
+border:1px solid #1e293b;
+background:#020617;
+color:white;
+}
+
+/* Event Grid */
+
+.events{
+display:flex;
+justify-content:center;
+gap:25px;
+flex-wrap:wrap;
+padding:20px;
+}
+
+/* Event Card */
+
+.event-card{
+background:#020617;
+padding:20px;
+width:260px;
+border-radius:12px;
+border:1px solid #1e293b;
+transition:0.3s;
+text-align:center;
+}
+
+.event-card:hover{
+transform:translateY(-6px);
+border-color:#38bdf8;
+}
+
+.event-card h3{
+color:#38bdf8;
+}
+
+/* Buttons */
+
+.btn{
+margin-top:10px;
+padding:8px 14px;
+border:none;
+border-radius:6px;
+cursor:pointer;
+}
+
+.remove{
+background:#ef4444;
+color:white;
+}
+
+.remove:hover{
+opacity:0.8;
+}
+
+/* Empty Message */
+
+.empty{
+text-align:center;
+margin-top:30px;
+color:#94a3b8;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- Navbar -->
+
+<nav class="navbar">
+
+<div class="logo">Evenza</div>
+
+<ul class="menu">
+<li><a href="#">Home</a></li>
+<li><a href="#">Events</a></li>
+<li><a href="#">My Events</a></li>
+</ul>
+
+</nav>
+
+<h2 class="title">My Registered Events</h2>
+
+<!-- Search -->
+
+<div class="search-box">
+<input type="text" id="search" placeholder="Search events..." onkeyup="searchEvents()">
+</div>
+
+<!-- Events -->
+
+<div class="events" id="eventContainer"></div>
+
+<p class="empty" id="emptyMessage"></p>
+
+<script>
+
+var events = [];
+
+/* LOAD EVENTS FROM BACKEND */
+
+function loadEvents(){
+
+fetch("http://localhost:5000/my-events")
+
+.then(res => res.json())
+
+.then(data => {
+
+events = data;
+
+displayEvents();
+
+})
+
+.catch(error => {
+
+console.log("Error loading events:", error);
+
+document.getElementById("emptyMessage").innerText="Cannot load events.";
+
+});
+
+}
+
+/* DISPLAY EVENTS */
+
+function displayEvents(){
+
+var container = document.getElementById("eventContainer");
+
+container.innerHTML="";
+
+if(events.length==0){
+
+document.getElementById("emptyMessage").innerText="No registered events.";
+
+return;
+
+}
+
+document.getElementById("emptyMessage").innerText="";
+
+for(var i=0;i<events.length;i++){
+
+var card=document.createElement("div");
+
+card.className="event-card";
+
+card.innerHTML=
+"<h3>"+events[i].name+"</h3>"+
+"<p>Date: "+events[i].date+"</p>"+
+"<p>Venue: "+events[i].venue+"</p>"+
+"<button class='btn remove' onclick='removeEvent("+i+")'>Remove</button>";
+
+container.appendChild(card);
+
+}
+
+}
+
+/* REMOVE EVENT (FRONTEND ONLY) */
+
+function removeEvent(index){
+
+events.splice(index,1);
+
+displayEvents();
+
+}
+
+/* SEARCH EVENTS */
+
+function searchEvents(){
+
+var input=document.getElementById("search").value.toLowerCase();
+
+var cards=document.getElementsByClassName("event-card");
+
+for(var i=0;i<cards.length;i++){
+
+var title=cards[i].getElementsByTagName("h3")[0].innerText.toLowerCase();
+
+if(title.includes(input)){
+cards[i].style.display="block";
+}else{
+cards[i].style.display="none";
+}
+
+}
+
+}
+
+/* LOAD EVENTS WHEN PAGE OPENS */
+
+loadEvents();
+
+</script>
+
+</body>
+</html>

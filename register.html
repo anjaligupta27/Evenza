@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evenza - Register</title>
+
+<style>
+
+body{
+margin:0;
+font-family:'Segoe UI', Arial;
+background:#0f172a;
+color:#e2e8f0;
+}
+
+/* Navbar */
+
+.navbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 40px;
+background:#020617;
+border-bottom:1px solid #1e293b;
+}
+
+.logo{
+font-size:22px;
+font-weight:bold;
+color:#38bdf8;
+}
+
+/* Form */
+
+.container{
+max-width:400px;
+margin:80px auto;
+background:#020617;
+padding:30px;
+border-radius:10px;
+border:1px solid #1e293b;
+}
+
+.container h2{
+text-align:center;
+color:#38bdf8;
+}
+
+input, select{
+width:100%;
+padding:10px;
+margin:10px 0;
+border-radius:6px;
+border:1px solid #1e293b;
+background:#0f172a;
+color:white;
+}
+
+button{
+width:100%;
+padding:12px;
+background:#38bdf8;
+border:none;
+border-radius:6px;
+font-weight:bold;
+cursor:pointer;
+}
+
+button:hover{
+opacity:0.9;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<nav class="navbar">
+<div class="logo">Evenza</div>
+</nav>
+
+<div class="container">
+
+<h2>Student Register</h2>
+
+<form onsubmit="registerUser(); return false;">
+
+<input type="text" id="name" placeholder="Full Name" required>
+
+<input type="email" id="email" placeholder="Email" required>
+
+<input type="password" id="password" placeholder="Password" required>
+
+<select id="role">
+<option value="student">Student</option>
+</select>
+
+<button type="submit">Register</button>
+
+</form>
+
+</div>
+
+<script>
+
+function registerUser(){
+
+var name=document.getElementById("name").value;
+var email=document.getElementById("email").value;
+var password=document.getElementById("password").value;
+var role=document.getElementById("role").value;
+
+fetch("http://localhost:5000/register",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+name:name,
+email:email,
+password:password,
+role:role
+})
+
+})
+
+.then(res=>res.json())
+
+.then(data=>{
+alert(data.message);
+})
+
+.catch(error=>{
+console.log(error);
+alert("Registration failed");
+});
+
+}
+
+</script>
+
+</body>
+</html>

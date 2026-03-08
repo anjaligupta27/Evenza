@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evenza - College Event Management System</title>
+
+<style>
+
+/* Body Theme */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #0f172a;
+    color: #e2e8f0;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    background: #020617;
+    border-bottom: 1px solid #1e293b;
+}
+
+/* Logo section */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo img {
+    height: 40px;
+    width: 40px;
+    object-fit: cover;
+}
+
+.logo span {
+    font-size: 22px;
+    font-weight: bold;
+    color: #38bdf8;
+}
+
+.menu {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+}
+
+.menu a {
+    text-decoration: none;
+    color: #e2e8f0;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.menu a:hover {
+    color: #38bdf8;
+}
+
+/* Hero Section with Background Image */
+.home {
+    height: 75vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQV6DluRNzGXxGSrHrJct8peihX7w7fo6A-Sw&s");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+/* Overlay */
+.home::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(2, 6, 23, 0.75);
+}
+
+/* Content above overlay */
+.home div {
+    position: relative;
+    z-index: 2;
+}
+
+.home h1 {
+    font-size: 52px;
+    margin-bottom: 5px;
+}
+
+.home h2 {
+    color: #38bdf8;
+    margin-bottom: 15px;
+}
+
+.home p {
+    margin-bottom: 25px;
+}
+
+/* Buttons */
+.btn {
+    padding: 12px 24px;
+    border-radius: 6px;
+    text-decoration: none;
+    margin: 8px;
+    font-weight: bold;
+}
+
+.primary {
+    background: #38bdf8;
+    color: black;
+}
+
+.secondary {
+    background: transparent;
+    border: 1px solid #38bdf8;
+    color: #38bdf8;
+}
+
+/* Events Section */
+.events {
+    padding: 60px 40px;
+    text-align: center;
+}
+
+.events h2 {
+    margin-bottom: 40px;
+    font-size: 30px;
+}
+
+.event-list {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+.event-card {
+    background: #020617;
+    padding: 25px;
+    width: 260px;
+    border-radius: 12px;
+    border: 1px solid #1e293b;
+    transition: 0.3s;
+}
+
+.event-card:hover {
+    transform: translateY(-6px);
+    border-color: #38bdf8;
+}
+
+.event-card h3 {
+    color: #38bdf8;
+}
+
+/* Footer */
+footer {
+    background: #020617;
+    padding: 20px;
+    text-align: center;
+    border-top: 1px solid #1e293b;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+    <div class="logo">
+        <img src="logo.png" alt="Evenza Logo">
+        <span>Evenza</span>
+    </div>
+
+    <ul class="menu">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Events</a></li>
+        <li><a href="#">Login</a></li>
+    </ul>
+</nav>
+
+<!-- Home Section -->
+<section class="home">
+    <div>
+        <h1>Evenza</h1>
+        <h2>College Event Management System</h2>
+        <p>Discover and register for exciting college events.</p>
+
+        <a href="#" class="btn primary">View Events</a>
+        <a href="#" class="btn secondary">Login</a>
+    </div>
+</section>
+
+<!-- Upcoming Events -->
+<section class="events">
+    <h2>Upcoming Events</h2>
+
+    <div class="event-list">
+        <div class="event-card">
+            <h3>Hackathon</h3>
+            <p>Date: 20 March 2026</p>
+            <p>Venue: Auditorium</p>
+        </div>
+
+        <div class="event-card">
+            <h3>Technical Quiz</h3>
+            <p>Date: 24 March 2026</p>
+            <p>Venue: Seminar Hall</p>
+        </div>
+
+        <div class="event-card">
+            <h3>AI Workshop</h3>
+            <p>Date: 30 March 2026</p>
+            <p>Venue: Lab 2</p>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+<p>© 2026 Evenza - College Event Management System</p>
+</footer>
+
+</body>
+</html>
