@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evenza Login</title>
+
+<style>
+
+/* Body */
+body{
+margin:0;
+font-family:'Segoe UI', Arial, sans-serif;
+background:#0f172a;
+color:#e2e8f0;
+}
+
+/* Navbar */
+
+.navbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 40px;
+background:#020617;
+border-bottom:1px solid #1e293b;
+}
+
+.logo{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.logo img{
+height:40px;
+width:40px;
+object-fit:cover;
+}
+
+.logo span{
+font-size:22px;
+font-weight:bold;
+color:#38bdf8;
+}
+
+.menu{
+list-style:none;
+display:flex;
+gap:25px;
+}
+
+.menu a{
+text-decoration:none;
+color:#e2e8f0;
+font-size:16px;
+}
+
+.menu a:hover{
+color:#38bdf8;
+}
+
+/* Login Section */
+
+.login-section{
+height:85vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background-image:url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQV6DluRNzGXxGSrHrJct8peihX7w7fo6A-Sw&s");
+background-size:cover;
+background-position:center;
+position:relative;
+}
+
+.login-section::before{
+content:"";
+position:absolute;
+inset:0;
+background:rgba(2,6,23,0.75);
+}
+
+/* Login Card */
+
+.login-card{
+position:relative;
+z-index:2;
+background:#020617;
+padding:40px;
+width:350px;
+border-radius:12px;
+border:1px solid #1e293b;
+box-shadow:0 10px 30px rgba(0,0,0,0.6);
+}
+
+/* Login Title */
+
+.login-card h2{
+text-align:center;
+margin-bottom:25px;
+color:#38bdf8;
+font-weight:bold;
+font-size:28px;
+}
+
+/* Inputs */
+
+.login-card input{
+width:100%;
+padding:12px;
+margin-bottom:15px;
+border-radius:6px;
+border:1px solid #1e293b;
+background:#0f172a;
+color:white;
+font-size:15px;
+}
+
+.login-card input::placeholder{
+color:#cbd5f5;
+}
+
+/* Button */
+
+.login-btn{
+width:100%;
+padding:12px;
+border:none;
+border-radius:6px;
+background:#38bdf8;
+color:black;
+font-weight:bold;
+cursor:pointer;
+}
+
+.login-btn:hover{
+background:#0ea5e9;
+}
+
+/* Message */
+
+#message{
+text-align:center;
+margin-top:10px;
+font-size:14px;
+}
+
+footer{
+background:#020617;
+padding:20px;
+text-align:center;
+border-top:1px solid #1e293b;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- Navbar -->
+
+<nav class="navbar">
+
+<div class="logo">
+<img src="logo.png">
+<span>Evenza</span>
+</div>
+
+<ul class="menu">
+<li><a href="index.html">Home</a></li>
+<li><a href="#">Events</a></li>
+<li><a href="login.html">Login</a></li>
+</ul>
+
+</nav>
+
+<!-- Login Section -->
+
+<section class="login-section">
+
+<div class="login-card">
+
+<h2>Login</h2>
+
+<form id="loginForm">
+
+<input type="email" id="email" placeholder="Email" required>
+
+<input type="password" id="password" placeholder="Password" required>
+
+<button class="login-btn" type="submit">Login</button>
+
+<p id="message"></p>
+
+</form>
+
+</div>
+
+</section>
+
+<footer>
+<p>© 2026 Evenza - College Event Management System</p>
+</footer>
+
+
+<script>
+
+/* Simple Login JS */
+
+document.getElementById("loginForm").addEventListener("submit", function(e){
+
+e.preventDefault();
+
+let email = document.getElementById("email").value;
+let password = document.getElementById("password").value;
+let message = document.getElementById("message");
+
+if(email === "" || password === ""){
+message.style.color = "red";
+message.innerText = "Please enter email and password";
+return;
+}
+
+/* Simulate API call */
+
+fetch("http://localhost:3000/login",{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+email:email,
+password:password
+})
+})
+
+.then(res=>{
+message.style.color="lightgreen";
+message.innerText="Login successful! Redirecting...";
+
+/* open home page */
+
+setTimeout(function(){
+window.location.href = "index.html";
+},1000);
+
+})
+
+.catch(err=>{
+message.style.color="red";
+message.innerText="Login failed!";
+});
+
+});
+
+</script>
+
+</body>
+</html>
